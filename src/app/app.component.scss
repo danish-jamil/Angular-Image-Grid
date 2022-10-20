@@ -1,0 +1,21 @@
+@import '../scss/settings';
+
+.container {
+  padding: 0 48px;
+}
+
+.header {
+  height: 50px;
+  background: $color-light-gray;
+  // color: $color-white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: center;
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+mat-grid-tile {
+  border: 1px solid green;
+}
