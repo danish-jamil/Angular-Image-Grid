@@ -1,23 +1,25 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
-import { HttpClient }  from '@angular/common/http';
-import { Observable } from "rxjs";
-import { GiphyApiResponse } from "../../types";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GiphyApiResponse, GiphySearchCriteria } from '../../types';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GiphyService {
-  URL = ''
-  
+  URL = environment.giphySearchApiUrl;
+
   constructor(private readonly httpClient: HttpClient) {}
 
-  search(): Observable<GiphyApiResponse> {
-    return this.httpClient.get<GiphyApiResponse>(`${this.URL}`, {
-      params: {
-        size: 9,
-        q: ''
-      }
-    })
+  search(criteria: GiphySearchCriteria): Observable<GiphyApiResponse> {
+    // In a perfect world we would use interceptor to set api key 😇
+    const params = Object.entries(criteria)
+      .map(([key, val]) => `${key}=${val}`)
+      .join('&');
+    return this.httpClient.get<GiphyApiResponse>(
+      `${this.URL}?${params}&api_key=${environment.giphyApiKey}`
+    );
   }
 }

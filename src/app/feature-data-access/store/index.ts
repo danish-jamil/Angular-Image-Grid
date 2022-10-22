@@ -1,4 +1,4 @@
 export * from './actions';
-export * from './queries';
+export * from './selectors';
 export * from './services';
 export * from './states';
